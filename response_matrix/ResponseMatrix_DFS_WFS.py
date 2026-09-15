@@ -2,6 +2,7 @@ import os, pickle, re, matplotlib, glob
 import numpy as np
 matplotlib.use("QtAgg")
 from machine_interfaces.Backend.State import State
+from machine_interfaces.Interfaces.interface_setup import get_intensity_labels
 from machine_interfaces.Knobs.jitter_subtraction import apply_jitter_subtraction
 
 class AdaptiveResponseMatrix:
@@ -307,6 +308,7 @@ class ResponseMatrix_DFS_WFS():
         info_traj = self._data_dirs.get("traj")
         info_dfs = self._data_dirs.get("dfs")
         info_wfs = self._data_dirs.get("wfs")
+        intensity_labels = get_intensity_labels(getattr(self, "interface", None))
 
         w1, w2, w3, rcond, iters, gain, beta, transmission_threshold= self._read_params()
 
@@ -315,7 +317,7 @@ class ResponseMatrix_DFS_WFS():
         if w2 > 0 and not (info_dfs and info_dfs["ok"]):
             raise RuntimeError("Please select a dispersion data directory")
         if w3 > 0 and not (info_wfs and info_wfs["ok"]):
-            raise RuntimeError("Please select a wakefield data directory")
+            raise RuntimeError(f"Please select a {intensity_labels['directory']} data directory")
 
         triangular = bool(self._force_triangular() or _force_triangular)
 
@@ -346,7 +348,7 @@ class ResponseMatrix_DFS_WFS():
             sig_wfs = self._dataset_beam_signature(info_wfs["pairs"])
             verdict = self._beam_signatures_unchanged(sig_traj, sig_wfs)
             if verdict:
-                raise RuntimeError(f"Orbit and Changed intensity measurements have the same settings.")
+                raise RuntimeError(intensity_labels["same_settings"])
         else:
             R2xx, R2yy, R2xy, R2yx = R0xx.copy(), R0yy.copy(), R0xy.copy(), R0yx.copy()
             B2x, B2y = B0x.copy(), B0y.copy()
