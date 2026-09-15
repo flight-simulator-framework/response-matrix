@@ -300,7 +300,7 @@ optional = false
 python-versions = ">=3.11"
 groups = ["main"]
 files = []
-develop = true
+develop = false
 
 [package.dependencies]
 matplotlib = ">=3.10.8,<4"
@@ -317,8 +317,10 @@ rftrack = ["rf-track (>=2.6.2,<3)"]
 tao = ["pytao (>=0.5,<2)"]
 
 [package.source]
-type = "directory"
-url = "../machine-interfaces"
+type = "git"
+url = "https://gitlab.cern.ch/flight-simulator/machine-interfaces.git"
+reference = "54490bf072d3db26d98383eeeced1a759e1d4bbb"
+resolved_reference = "54490bf072d3db26d98383eeeced1a759e1d4bbb"
 
 [[package]]
 name = "matplotlib"
@@ -797,4 +799,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11"
-content-hash = "8e27c46e449bbe025f59f53ee28ac778cb770f6029b02984cce66a5545793986"
+content-hash = "6335c5950f339936197c355aacde3d389d6b71691b2d8586ba05b3c778db4ffa"
