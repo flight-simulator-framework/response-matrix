@@ -1,6 +1,7 @@
-from Backend.State import State
-from Backend.Response import Response
-from Backend.ResponseMatrix_DFS_WFS_rnd import ResponseMatrix_DFS_WFS
+import response_matrix
+from machine_interfaces.Backend.State import State
+from response_matrix.Response import Response
+from response_matrix.ResponseMatrix_DFS_WFS_rnd import ResponseMatrix_DFS_WFS
 import numpy as np
 import glob,sys,os,argparse,matplotlib
 try:
@@ -17,7 +18,7 @@ except ImportError:
     from PyQt5.QtCore import Qt, QThread, QObject, pyqtSignal, pyqtSlot, QTimer
     from PyQt5.QtTest import QTest
     pyqt_version = 5
-from Backend.SaveOrLoad import SaveOrLoad
+from machine_interfaces.Backend.SaveOrLoad import SaveOrLoad
 matplotlib.use('QtAgg')
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -34,7 +35,7 @@ class MainWindow(QMainWindow, SaveOrLoad):
     def __init__(self,data_dir_1=None,data_dir_2=None,comp_difference=False,auto_click_compute=False):
         super().__init__()
         self._rnd_response = ResponseMatrix_DFS_WFS()
-        uic.loadUi("UI files/ComputeResponseMatrix_GUI.ui", self)
+        uic.loadUi(os.path.join(os.path.dirname(response_matrix.__file__), "UI files", "ComputeResponseMatrix_GUI.ui"), self)
         self.cwd = os.getcwd()
         self.R=None
         self.correctors=[]

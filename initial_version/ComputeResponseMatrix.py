@@ -1,5 +1,5 @@
-from Backend.State import State
-from Response import Response
+from machine_interfaces.Backend.State import State
+from response_matrix.Response import Response
 from datetime import datetime
 
 from matplotlib import pyplot as plt

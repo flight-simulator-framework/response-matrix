@@ -1,7 +1,8 @@
-from Backend.State import State
-from Backend.Response import Response
+import response_matrix
+from machine_interfaces.Backend.State import State
+from response_matrix.Response import Response
 import pprint
-from Backend.ResponseMatrix_DFS_WFS import ResponseMatrix_DFS_WFS
+from response_matrix.ResponseMatrix_DFS_WFS import ResponseMatrix_DFS_WFS
 try:
     from PyQt6 import uic
     from PyQt6.QtWidgets import (
@@ -27,7 +28,7 @@ except ImportError:
     pyqt_version = 5
 import numpy as np
 import glob,sys,os,argparse,matplotlib
-from Backend.SaveOrLoad import SaveOrLoad
+from machine_interfaces.Backend.SaveOrLoad import SaveOrLoad
 matplotlib.use('QtAgg')
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -58,7 +59,7 @@ class MainWindow(QMainWindow, SaveOrLoad, ResponseMatrix_DFS_WFS):
 
     def __init__(self,data_dir_1=None,data_dir_2=None,comp_difference=False,auto_click_compute=False):
         super().__init__()
-        uic.loadUi("UI files/ComputeResponseMatrix_GUI.ui", self)
+        uic.loadUi(os.path.join(os.path.dirname(response_matrix.__file__), "UI files", "ComputeResponseMatrix_GUI.ui"), self)
         self._load_logo()
         self.cwd = os.getcwd()
         self.R=None
@@ -358,7 +359,7 @@ class MainWindow(QMainWindow, SaveOrLoad, ResponseMatrix_DFS_WFS):
             else Qt.SmoothTransformation
         )
 
-        base_dir = os.path.dirname(os.path.abspath(__file__))
+        base_dir = os.path.dirname(response_matrix.__file__)
         logo_path = os.path.join(base_dir, "UI files", "Assets", "CERN_logo.png")
 
         if not os.path.isfile(logo_path):

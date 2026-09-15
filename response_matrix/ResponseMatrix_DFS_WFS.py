@@ -1,8 +1,8 @@
 import os, pickle, re, matplotlib, glob
 import numpy as np
 matplotlib.use("QtAgg")
-from Backend.State import State
-from Knobs.jitter_subtraction import apply_jitter_subtraction
+from machine_interfaces.Backend.State import State
+from machine_interfaces.Knobs.jitter_subtraction import apply_jitter_subtraction
 
 class AdaptiveResponseMatrix:
     def __init__(self, R0, forgetting=0.995, rank=3, p0_scale=100.0):

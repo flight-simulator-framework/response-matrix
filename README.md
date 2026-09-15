@@ -24,12 +24,16 @@ The standard and quadrupole-mover GUIs can also plot singular values to inspect 
 
 The saved result contains `Rxx`, `Rxy`, `Ryx` and `Ryy`, together with the corresponding BPM and actuator names.
 
-## Installation
+## Installation and startup
 
-Use Python 3.11 or newer and Poetry 2 or newer. From the repository directory, install the dependencies:
+Use Python 3.11 or newer and Poetry 2 or newer; the local setup was tested with Python 3.13. Keep this repository and `machine-interfaces` in the same parent directory. From this repository, run:
 
 ```bash
 poetry install
+poetry run python ComputeResponseMatrix_GUI.py
 ```
 
-Shared code is provided by `machine-interfaces`.
+Other files, using the same interpreter:
+
+- `ComputeResponseMatrix_QM_GUI.py`
+- `ComputeResponseMatrix_rnd_GUI.py`
