@@ -319,8 +319,8 @@ tao = ["pytao (>=0.5,<2)"]
 [package.source]
 type = "git"
 url = "https://gitlab.cern.ch/flight-simulator/machine-interfaces.git"
-reference = "54490bf072d3db26d98383eeeced1a759e1d4bbb"
-resolved_reference = "54490bf072d3db26d98383eeeced1a759e1d4bbb"
+reference = "1fa7fca06f949e085353030f59587a68de7e3baf"
+resolved_reference = "1fa7fca06f949e085353030f59587a68de7e3baf"
 
 [[package]]
 name = "matplotlib"
@@ -799,4 +799,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11"
-content-hash = "6335c5950f339936197c355aacde3d389d6b71691b2d8586ba05b3c778db4ffa"
+content-hash = "ab8efcccbcd35f10b7244a839d50975616b15af385c121badc7ca655ab509096"
