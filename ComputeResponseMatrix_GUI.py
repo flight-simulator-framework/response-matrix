@@ -210,12 +210,7 @@ class MainWindow(QMainWindow, SaveOrLoad, ResponseMatrix_DFS_WFS):
 
     def _actuator_label(self):
         return "Corrector"
-
-    def _refresh_device_lists_for_current_mode(self):
-        folder = self._expand_path(self.data_directory_1.text())
-        if folder:
-            self._load_lists_from_directory(folder)
-
+    
     def _compute_difference_clicked(self,checked):
         checked=bool(checked)
         self.label_dir_2.setEnabled(checked)
