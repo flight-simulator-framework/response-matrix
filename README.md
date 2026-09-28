@@ -28,7 +28,6 @@ The saved result contains `Rxx`, `Rxy`, `Ryx` and `Ryy`, together with the corre
 
 
 ```bash
-git clone https://gitlab.cern.ch/flight-simulator/machine-interfaces.git
 git clone https://gitlab.cern.ch/flight-simulator/response-matrix.git
 cd response-matrix
 poetry install
