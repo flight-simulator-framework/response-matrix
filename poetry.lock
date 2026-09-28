@@ -294,13 +294,13 @@ files = [
 
 [[package]]
 name = "machine-interfaces"
-version = "0.1.0"
-description = "Machine interface contract, accelerator adapters, registry and interface selector."
+version = "0.2.0"
+description = "Shared machine interface API, state storage and interface selection."
 optional = false
 python-versions = ">=3.11"
 groups = ["main"]
 files = []
-develop = false
+develop = true
 
 [package.dependencies]
 matplotlib = ">=3.10.8,<4"
@@ -311,16 +311,10 @@ scipy = ">=1.17.1,<2"
 [package.extras]
 analysis = ["h5py (>=3,<4)"]
 camera-reference = ["pillow (>=12.1.1,<13)"]
-epics = ["pyepics (>=1.0,<4)"]
-madx = ["cpymad (>=1,<2)"]
-rftrack = ["rf-track (>=2.6.2,<3)"]
-tao = ["pytao (>=0.5,<2)"]
 
 [package.source]
-type = "git"
-url = "https://gitlab.cern.ch/flight-simulator/machine-interfaces.git"
-reference = "1fa7fca06f949e085353030f59587a68de7e3baf"
-resolved_reference = "1fa7fca06f949e085353030f59587a68de7e3baf"
+type = "directory"
+url = "../machine-interfaces"
 
 [[package]]
 name = "matplotlib"
@@ -863,4 +857,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11"
-content-hash = "7b2d73db85f8c871f09897d56b88597362951d07f6284e978a1c1ebc8449e44f"
+content-hash = "0f3d8b2c3357a893f1ec2148eebebeb4273eac900db06f8f8b97a61f867f641e"

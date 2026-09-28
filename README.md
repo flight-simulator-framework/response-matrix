@@ -26,16 +26,16 @@ The saved result contains `Rxx`, `Rxy`, `Ryx` and `Ryy`, together with the corre
 
 ## Installation and startup
 
-Use Python 3.11 or newer and Poetry 2 or newer.
 
 ```bash
+git clone https://gitlab.cern.ch/flight-simulator/machine-interfaces.git
 git clone https://gitlab.cern.ch/flight-simulator/response-matrix.git
 cd response-matrix
 poetry install
 poetry run python ComputeResponseMatrix_GUI.py
 ```
 
-Poetry downloads and installs the required Python dependencies automatically.
+Keep these repositories in the same parent directory; Poetry uses their local editable packages.
 
 Other files, using the same interpreter:
 

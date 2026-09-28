@@ -1,6 +1,6 @@
 [project]
 name = "flight-response-matrix"
-version = "0.1.0"
+version = "0.2.0"
 description = "Offline response matrix reconstruction from recorded machine snapshots."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -9,8 +9,8 @@ dependencies = [
     "numpy>=2.4.2,<3",
     "matplotlib>=3.10.8,<4",
     "PyQt6>=6.10.2,<7",
-    "machine-interfaces @ git+https://gitlab.cern.ch/flight-simulator/machine-interfaces.git@1fa7fca06f949e085353030f59587a68de7e3baf",
-    "pyqt5 (>=5.15.11,<6.0.0)"
+    "machine-interfaces>=0.2.0,<0.3",
+    "pyqt5 (>=5.15.11,<6.0.0)",
 ]
 
 [build-system]
@@ -20,6 +20,8 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 packages = [{include = "response_matrix"}, {include = "ComputeResponseMatrix_GUI.py"}, {include = "ComputeResponseMatrix_QM_GUI.py"}, {include = "ComputeResponseMatrix_rnd_GUI.py"}]
 
+[tool.poetry.dependencies]
+machine-interfaces = {path = "../machine-interfaces", develop = true}
 [tool.flight-simulator.migration]
 status = "local-execution-ready"
 repository-dependencies = ["machine-interfaces"]
