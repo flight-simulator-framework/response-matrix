@@ -77,8 +77,6 @@ class MainWindow(QMainWindow, SaveOrLoad, ResponseMatrix_DFS_WFS):
         self.save_as_button.clicked.connect(self.__save_as_button_clicked)
         self.diff_checkbox.toggled.connect(self._compute_difference_clicked)
         self._compute_difference_clicked(self.diff_checkbox.isChecked())
-        self.label_actuator_type.setVisible(False)
-        self.actuator_type_combo.setVisible(False)
         self.plot_singular_values_button.clicked.connect(self._plot_singular_values)
         self.load_correctors_button.clicked.connect(self.__load_correctors_button_clicked)
         self.load_bpms_button.clicked.connect(self.__load_bpms_button_clicked)
