@@ -308,7 +308,7 @@ class ResponseMatrix_DFS_WFS():
         info_traj = self._data_dirs.get("traj")
         info_dfs = self._data_dirs.get("dfs")
         info_wfs = self._data_dirs.get("wfs")
-        intensity_labels = get_intensity_labels(getattr(self, "interface", None))
+        intensity_labels = getattr(self, "_intensity_labels", None) or get_intensity_labels(getattr(self, "interface", None))
 
         w1, w2, w3, rcond, iters, gain, beta, transmission_threshold= self._read_params()
 
