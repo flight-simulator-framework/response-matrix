@@ -176,8 +176,18 @@ class ResponseMatrix_DFS_WFS():
             Cy = np.vstack((Cy, Cy_p))
             Cy = np.vstack((Cy, Cy_m))
 
+        # States from earlier BBA corrections that used this matrix (BBA_<session>_ITER_*.pkl); group 0 = measurement
+        groups, sessions = [0] * len(Bx), {}
+        for fn in sorted(glob.glob(os.path.join(os.path.dirname(pairs[0][0]), "BBA_*.pkl"))):
+            S = State(filename=fn)
+            O = S.get_orbit(bpms)
+            Bx, By = np.vstack((Bx, O['x'])), np.vstack((By, O['y']))
+            Cx, Cy = np.vstack((Cx, S.get_correctors(hcorrs)['bact'])), np.vstack((Cy, S.get_correctors(vcorrs)['bact']))
+            groups.append(sessions.setdefault(os.path.basename(fn).split("_ITER_")[0], len(sessions) + 1))
+
         Bx, By = Bx.astype(float), By.astype(float)
         Cx, Cy = Cx.astype(float), Cy.astype(float)
+        groups = np.array(groups)
 
         hcol_mask = np.array([corr in excited_hcorrs for corr in hcorrs]) & np.any(np.isfinite(Cx), axis=0)
         vcol_mask = np.array([corr in excited_vcorrs for corr in vcorrs]) & np.any(np.isfinite(Cy), axis=0)
@@ -188,28 +198,27 @@ class ResponseMatrix_DFS_WFS():
         row_mask = np.all(np.isfinite(Cx), axis=1) & np.all(np.isfinite(Cy), axis=1)
         if not np.any(row_mask):
             raise RuntimeError("No complete corrector readbacks available for response-matrix.")
-        Bx, By, Cx, Cy = Bx[row_mask], By[row_mask], Cx[row_mask], Cy[row_mask]
+        Bx, By, Cx, Cy, groups = Bx[row_mask], By[row_mask], Cx[row_mask], Cy[row_mask], groups[row_mask]
 
-        B_mask = np.all(np.isfinite(Bx), axis=0) & np.all(np.isfinite(By), axis=0)
+        measured = groups == 0
+        B_mask = np.all(np.isfinite(Bx[measured]), axis=0) & np.all(np.isfinite(By[measured]), axis=0)
         if not np.any(B_mask):
             raise RuntimeError("No BPM has complete orbit data for response-matrix.")
+        keep = measured | (np.all(np.isfinite(Bx[:, B_mask]), axis=1) & np.all(np.isfinite(By[:, B_mask]), axis=1))
+        Bx, By, Cx, Cy, groups = Bx[keep], By[keep], Cx[keep], Cy[keep], groups[keep]
 
-        Cx = np.hstack((Cx, np.ones((Cx.shape[0], 1))))
-        Cy = np.hstack((Cy, np.ones((Cy.shape[0], 1))))
+        # Joint fit, because BBA steps move h and v correctors together;
+        # one orbit offset per group, so drift between sessions is not fitted as a corrector response
+        offsets = (groups[:, None] == np.unique(groups)).astype(float)
+        C = np.hstack((Cx, Cy, offsets))
 
-        def lstsq(C, B):
+        def lstsq(B):
             return np.transpose(np.linalg.lstsq(C, B[:, B_mask], rcond=rcond)[0])
 
-        Rxx_ = lstsq(Cx, Bx)
-        Rxy_ = lstsq(Cy, Bx)
-        Ryx_ = lstsq(Cx, By)
-        Ryy_ = lstsq(Cy, By)
-
-        # Response matrices: remove offset column
-        Rxx_ = Rxx_[:, :-1]
-        Rxy_ = Rxy_[:, :-1]
-        Ryx_ = Ryx_[:, :-1]
-        Ryy_ = Ryy_[:, :-1]
+        nh, nv = Cx.shape[1], Cy.shape[1]
+        Rx_, Ry_ = lstsq(Bx), lstsq(By)
+        Rxx_, Rxy_ = Rx_[:, :nh], Rx_[:, nh:nh + nv]
+        Ryx_, Ryy_ = Ry_[:, :nh], Ry_[:, nh:nh + nv]
 
         # Restore nan columns
         k = B_mask.size
@@ -224,9 +233,9 @@ class ResponseMatrix_DFS_WFS():
         Ryx[B_mask,:] = Ryx_
         Ryy[B_mask,:] = Ryy_
 
-        # Reference trajectory
-        Bx = np.mean(Bx, axis=0).reshape(-1, 1)
-        By = np.mean(By, axis=0).reshape(-1, 1)
+        # Reference trajectory (from the measurement only)
+        Bx = np.mean(Bx[groups == 0], axis=0).reshape(-1, 1)
+        By = np.mean(By[groups == 0], axis=0).reshape(-1, 1)
 
         # Zero the response of all bpms preceeding the correctors
         if triangular:
