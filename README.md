@@ -26,17 +26,23 @@ The saved result contains `Rxx`, `Rxy`, `Ryx` and `Ryy`, together with the corre
 
 ## Installation and startup
 
+On a control-room computer, install the applications with the deployment script of your machine: [CLEAR](https://gitlab.cern.ch/flight-simulator/machine-interfaces/-/blob/master/backends/clear/clear_deploy.md), [ATF2](https://gitlab.cern.ch/flight-simulator/machine-interfaces/-/blob/master/backends/atf2/atf2_deploy.md), [ESRF](https://gitlab.cern.ch/flight-simulator/machine-interfaces/-/blob/master/backends/esrf/esrf_deploy.md) or [FACET2](https://gitlab.cern.ch/flight-simulator/machine-interfaces/-/blob/master/backends/facet2/facet2_deploy.md). It creates a shared virtual environment and one launcher per GUI, e.g. `./ComputeResponseMatrix_GUI.sh`.
+
+For a local installation, use Python 3.11 or newer and keep the repositories in one directory:
 
 ```bash
+git clone https://gitlab.cern.ch/flight-simulator/machine-interfaces.git
 git clone https://gitlab.cern.ch/flight-simulator/response-matrix.git
+python3 -m venv venv
+source venv/bin/activate
+pip install -e machine-interfaces -e response-matrix
 cd response-matrix
-poetry install
-poetry run python ComputeResponseMatrix_GUI.py
+python ComputeResponseMatrix_GUI.py
 ```
 
-Keep these repositories in the same parent directory; Poetry uses their local editable packages.
+Editable installs pick up `git pull` changes without reinstalling.
 
-Other files, using the same interpreter:
+Other entry files, using the same environment:
 
 - `ComputeResponseMatrix_QM_GUI.py`
 - `ComputeResponseMatrix_rnd_GUI.py`
