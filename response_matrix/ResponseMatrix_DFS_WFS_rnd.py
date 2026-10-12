@@ -1,6 +1,5 @@
-import os, pickle, re, matplotlib, glob
+import os, pickle, re, glob
 import numpy as np
-matplotlib.use("QtAgg")
 from machine_interfaces.Backend.State import State
 from machine_interfaces.Interfaces.interface_setup import get_intensity_labels
 from machine_interfaces.Knobs.jitter_subtraction import apply_jitter_subtraction
