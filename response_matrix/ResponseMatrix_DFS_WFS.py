@@ -188,8 +188,8 @@ class ResponseMatrix_DFS_WFS():
         Cx, Cy = Cx.astype(float), Cy.astype(float)
         groups = np.array(groups)
 
-        hcol_mask = np.array([corr in excited_hcorrs for corr in hcorrs]) & np.any(np.isfinite(Cx), axis=0)
-        vcol_mask = np.array([corr in excited_vcorrs for corr in vcorrs]) & np.any(np.isfinite(Cy), axis=0)
+        hcol_mask = np.array([corr in excited_hcorrs for corr in hcorrs], dtype=bool) & np.any(np.isfinite(Cx), axis=0)
+        vcol_mask = np.array([corr in excited_vcorrs for corr in vcorrs], dtype=bool) & np.any(np.isfinite(Cy), axis=0)
         hcorrs = [corr for corr, keep in zip(hcorrs, hcol_mask) if keep]
         vcorrs = [corr for corr, keep in zip(vcorrs, vcol_mask) if keep]
         Cx, Cy = Cx[:, hcol_mask], Cy[:, vcol_mask]
