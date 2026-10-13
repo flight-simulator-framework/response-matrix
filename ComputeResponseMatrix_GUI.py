@@ -232,7 +232,7 @@ class MainWindow(QMainWindow, SaveOrLoad, ResponseMatrix_DFS_WFS):
         plt.xlabel('Singular Value')
         plt.ylabel('Value')
         plt.legend()
-        plt.show()
+        plt.show(block=False)
 
     def _pick_directory_with_data(self,line_edit):
         # base=self._expand_path(line_edit.text() or self.cwd) or self.cwd
