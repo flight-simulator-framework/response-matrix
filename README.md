@@ -44,8 +44,6 @@ cd response-matrix
 python ComputeResponseMatrix_GUI.py
 ```
 
-Editable installs pick up `git pull` changes without reinstalling.
-
 Other entry files, using the same environment:
 
 - `ComputeResponseMatrix_QM_GUI.py`
