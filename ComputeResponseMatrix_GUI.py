@@ -372,6 +372,8 @@ if __name__ == '__main__':
     parser.add_argument("--dir2",default=None,help="Second data directory")
     parser.add_argument("--diff",action="store_true",help="Difference between responses")
     parser.add_argument("--compute",action="store_true",help="Auto-click Compute button")
+    parser.add_argument("--correctors",nargs="*",default=[],help="Correctors to preselect")
+    parser.add_argument("--bpms",nargs="*",default=[],help="BPMs to preselect")
 
     args=parser.parse_args()
 
@@ -380,5 +382,8 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     window = MainWindow(data_dir_1=args.dir1, data_dir_2=args.dir2, comp_difference=args.diff, auto_click_compute=args.compute)
+    for widget, names in ((window.correctors_list, args.correctors), (window.bpms_list, args.bpms)):
+        for i in range(widget.count()):
+            widget.item(i).setSelected(widget.item(i).text() in names)
     window.show()
     sys.exit(app.exec())
