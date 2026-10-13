@@ -24,15 +24,19 @@ The standard and quadrupole-mover GUIs can also plot singular values to inspect 
 
 The saved result contains `Rxx`, `Rxy`, `Ryx` and `Ryy`, together with the corresponding BPM and actuator names.
 
+## Development
+
+Development, issues and pull requests are hosted on [GitHub](https://github.com/flight-simulator-framework/response-matrix). The [CERN GitLab repository](https://gitlab.cern.ch/flight-simulator/response-matrix) receives updates from GitHub through a pull mirror.
+
 ## Installation and startup
 
-On a control-room computer, install the applications with the deployment script of your machine: [CLEAR](https://gitlab.cern.ch/flight-simulator/machine-interfaces/-/blob/master/backends/clear/clear_deploy.md), [ATF2](https://gitlab.cern.ch/flight-simulator/machine-interfaces/-/blob/master/backends/atf2/atf2_deploy.md), [ESRF](https://gitlab.cern.ch/flight-simulator/machine-interfaces/-/blob/master/backends/esrf/esrf_deploy.md) or [FACET2](https://gitlab.cern.ch/flight-simulator/machine-interfaces/-/blob/master/backends/facet2/facet2_deploy.md). It creates a shared virtual environment and one launcher per GUI, e.g. `./ComputeResponseMatrix_GUI.sh`.
+On a control-room computer, install the applications with the deployment script of your machine: [CLEAR](https://github.com/flight-simulator-framework/machine-interfaces/blob/master/backends/clear/clear_deploy.md), [ATF2](https://github.com/flight-simulator-framework/machine-interfaces/blob/master/backends/atf2/atf2_deploy.md), [ESRF](https://github.com/flight-simulator-framework/machine-interfaces/blob/master/backends/esrf/esrf_deploy.md) or [FACET2](https://github.com/flight-simulator-framework/machine-interfaces/blob/master/backends/facet2/facet2_deploy.md). It creates a shared virtual environment and one launcher per GUI, e.g. `./ComputeResponseMatrix_GUI.sh`.
 
-For a local installation, use Python 3.11 or newer and keep the repositories in one directory:
+For a local installation, use Python 3.11 or newer and keep the repositories in one directory. The commands below clone from GitHub; to clone from CERN GitLab instead, replace `https://github.com/flight-simulator-framework/` with `https://gitlab.cern.ch/flight-simulator/`:
 
 ```bash
-git clone https://gitlab.cern.ch/flight-simulator/machine-interfaces.git
-git clone https://gitlab.cern.ch/flight-simulator/response-matrix.git
+git clone https://github.com/flight-simulator-framework/machine-interfaces.git
+git clone https://github.com/flight-simulator-framework/response-matrix.git
 python3 -m venv venv
 source venv/bin/activate
 pip install -e machine-interfaces -e response-matrix

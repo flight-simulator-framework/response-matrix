@@ -10,7 +10,6 @@ dependencies = [
     "matplotlib>=3.10.8,<4",
     "PyQt6>=6.10.2,<7",
     "machine-interfaces>=0.2.0,<0.3",
-    "pyqt5 (>=5.15.11,<6.0.0)",
 ]
 
 [build-system]
