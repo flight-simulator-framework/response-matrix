@@ -160,6 +160,10 @@ class ResponseMatrix_DFS_WFS():
                     excited_hcorrs.add(tag)
                 elif tag in vcorrs:
                     excited_vcorrs.add(tag)
+                elif tag == "RND":
+                    for names, excited in ((hcorrs, excited_hcorrs), (vcorrs, excited_vcorrs)):
+                        p, m = Sp.get_correctors(names), Sm.get_correctors(names)
+                        excited.update(str(c) for c, bp, bm in zip(p['names'], p['bdes'], m['bdes']) if bp != bm)
 
 
             Bx = np.vstack((Bx, Op['x']))
