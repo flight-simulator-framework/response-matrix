@@ -56,17 +56,13 @@ class ResponseMatrix_DFS_WFS():
         return {"ok":bool(pairs), "dir":directory, "pairs":pairs}
 
     def _compute_response_matrix(self, pairs, correctors, bpms, triangular=False, actuator_mode="correctors", rcond=None):
-        if not hasattr(self, 'sequence'):
-            file = pairs[0][0]
-            S = State(filename=file)
-            self.sequence = S.get_sequence()
+        S = State(filename=pairs[0][0])
+        self.sequence = S.get_sequence()
         if actuator_mode == "quadrupole_movers":
             return self._compute_qm_response_matrix(pairs=pairs, qcorrs=correctors, bpms=bpms, triangular=triangular)
         else:
             # hcorrs = [string for string in correctors if self._is_h_corrector(string)]
             # vcorrs = [string for string in correctors if self._is_v_corrector(string)]
-            file = pairs[0][0]
-            S = State(filename=file)
             hcorrs = [c for c in correctors if c in S.hcorrectors_names]
             vcorrs = [c for c in correctors if c in S.vcorrectors_names]
 
